@@ -1,0 +1,23 @@
+.form-control {
+  margin: 5px;
+  padding: 5px;
+  width: 90%;
+}
+
+.comment-cell {
+  position: relative;
+}
+
+.comment-text {
+  display: block;
+  width: 100%;
+  max-width: 170px;
+  /* Adjust the maximum height as needed */
+  overflow: auto;
+  /* border: 1px solid #ccc; */
+  padding: 5px;
+  /* resize: vertical; */
+}
+table .high-score {
+  color: red;
+}

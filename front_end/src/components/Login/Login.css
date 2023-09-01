@@ -1,0 +1,212 @@
+/* Global styles */
+body,
+html {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  font-family: Georgia, "Times New Roman", Times, serif;
+}
+
+/* Page container */
+.page-container {
+  position: relative;
+  min-height: 100vh; /* Use min-height to make sure container covers the entire viewport */
+  overflow: hidden; /* Ensure the background image doesn't overflow */
+  align-items: center;
+}
+
+/* Background image */
+.background-image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url("../../images/background2.jpg");
+  background-size: cover;
+  background-position: center;
+  z-index: -1;
+}
+
+/* White container */
+.white-container {
+  display: flex;
+  justify-content: center;
+  box-shadow: 0px 0px 4px blue;
+  position: relative;
+  border-radius: 10px;
+  margin: 100px auto;
+  width: 100%;
+  height: 100%;
+  max-width: 150vh;
+  min-height: 72vh;
+}
+
+/* Left container */
+.left-container {
+  position: relative;
+  flex: 2;
+  border-radius: 10px 0px 0px 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  background: linear-gradient(
+    135deg,
+    #4caf50,
+    #2196f3
+  ); /* Define the gradient colors and direction */
+}
+.logo-container {
+  display: flex;
+  justify-content: start;
+}
+
+/* Logo image */
+.logo-image {
+  width: 15vh; /* Adjust the width of the logo */
+  height: auto;
+  position: absolute; /* Position the logo absolutely within the container */
+  top: 0;
+  right: 0; /* Maintain aspect ratio */
+}
+.nust-logo-image {
+  width: 10vh; /* Adjust the width of the logo */
+  height: auto;
+  position: absolute; /* Position the logo absolutely within the container */
+  top: 10px;
+  left: 10px;
+} /* Maintain aspect ratio */
+
+.title {
+  font-size: 6.5vh;
+  text-align: center;
+  padding-bottom: 2vh;
+  color: #fff; /* Set the text color to white to make it visible on the gradient background */
+  margin-bottom: 0px;
+  width: 85%;
+  padding-top: 6vh;
+}
+
+.description {
+  font-size: 2.3vh;
+  padding-top: 2vh;
+  width: 85%;
+  text-align: justify;
+  color: #fff; /* Set the text color to white to make it visible on the gradient background */
+}
+
+/* Right container */
+.right-container {
+  background-color: white;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 30px;
+
+  border-radius: 0 10px 10px 0px;
+  position: relative;
+}
+
+.login-title {
+  font-size: 4vh;
+  padding-bottom: 3.6vh;
+  padding-top: 12vh;
+  color: #0044ba;
+  font-weight: bold;
+}
+
+.input-field {
+  width: 80%;
+  margin-bottom: 10px;
+  padding: 10px;
+  padding-left: 20px;
+  border: none; /* Remove the default border */
+  border-radius: 30px; /* Set maximum border radius to create curved edges */
+  background-color: #cbe9ff; /* Set a light blue background color */
+  font-size: 1rem;
+  color: black;
+  outline: none; /* Remove the default outline */
+  transition: box-shadow 0.3s, transform 0.2s; /* Add transition for smooth effect */
+}
+.input-field + .input-field {
+  margin-top: 3vh; /* Adjust the margin value to control the spacing between input fields */
+}
+.input-field::placeholder {
+  color: #2196f3; /* Set the placeholder color to light gray */
+}
+.input-field:hover {
+  transform: scale(1.02);
+}
+.input-field:focus {
+  box-shadow: 0 0 5px blue; /* Add blue outline when input is in focus */
+  transform: scale(1.02); /* Add a slight scale effect on focus */
+}
+
+.login-button {
+  width: 15vh;
+  padding: 10px;
+  border: none;
+  border-radius: 20px;
+  background-color: #007bff;
+  color: #fff;
+  font-size: 1rem;
+  font-weight: bold;
+  margin-top: 4vh;
+  cursor: pointer;
+  min-width: 100px;
+}
+
+.login-button:hover {
+  background-color: #0056b3;
+}
+
+.login-button:active {
+  background-color: #003b80;
+}
+@media (max-width: 768px) {
+  .white-container {
+    flex-direction: column; /* Stack the left and right containers vertically on mobile */
+    height: auto; /* Remove fixed height to allow it to expand as per content */
+    max-height: 140vh;
+  }
+
+  .left-container {
+    border-radius: 10px 10px 0px 0px; /* Adjust border radius for top corners */
+    padding: 10px 10px 10px; /* Adjust padding to create spacing between top and bottom containers */
+    margin-bottom: 20px; /* Add margin to separate the two containers */
+  }
+
+  .right-container {
+    border-radius: 0px 0px 10px 10px; /* Adjust border radius for bottom corners */
+    padding: 20px 20px 30px; /* Adjust padding to create spacing between the containers */
+  }
+
+  .title {
+    font-size: 5vh; /* Adjust font size for mobile */
+    padding-top: 1vh; /* Adjust padding for mobile */
+  }
+
+  .description {
+    font-size: 2vh; /* Adjust font size for mobile */
+  }
+
+  .login-title {
+    font-size: 4vh; /* Adjust font size for mobile */
+    padding-bottom: 2vh; /* Adjust padding for mobile */
+    padding-top: 4vh; /* Adjust padding for mobile */
+  }
+
+  .input-field {
+    width: 80%; /* Adjust width to occupy full width on mobile */
+  }
+  .nust-logo-image {
+    position: relative;
+  }
+  .logo-image {
+    position: relative;
+  }
+}

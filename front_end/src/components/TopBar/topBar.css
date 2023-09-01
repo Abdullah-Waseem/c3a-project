@@ -1,0 +1,16 @@
+.topbar {
+  background-color: #2138ab;
+  color: #fff;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+  /* height: 100vh; */
+}
+
+.topbar-logo {
+  font-size: 2rem;
+  font-weight: bold;
+  color: #fff;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}

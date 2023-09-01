@@ -1,0 +1,32 @@
+/* Common styles for both desktop and mobile */
+.mainMenu {
+  background-image: url("../../images/background2.jpg");
+  background-size: cover; /* Ensure the background image covers the whole container */
+  padding-top: 32px;
+  min-height: 100vh;
+}
+
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(
+    2,
+    minmax(250px, 1fr)
+  ); /* Update to two columns */
+  grid-gap: 20px;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+}
+
+/* Styles for mobile */
+@media (max-width: 768px) {
+  .mainMenu {
+    background-size: cover; /* Ensure the background image covers the whole container on mobile */
+    background-repeat: no-repeat;
+    background-position: center;
+  }
+
+  .card-grid {
+    grid-template-columns: repeat(1, 1fr); /* Change to one column for mobile */
+  }
+}
