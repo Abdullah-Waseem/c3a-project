@@ -6,10 +6,10 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import c3alogo from "../../images/c3alogo.png";
 import nustlogo from "../../images/nustlogo.png";
-import { useMyContext } from "../../MyContext"; // Import the context hook
+// import { useMyContext } from "../../MyContext"; // Import the context hook
 
 const Login = ({ setUserId, setUserName, setUserEmail, setUserComments }) => {
-  const { setLoggedIn } = useMyContext(); // Access the setLoggedIn function from the context
+  // const { setLoggedIn } = useMyContext(); // Access the setLoggedIn function from the context
   const navigate = useNavigate();
   const [shoulNavigateCrud, setShouldNavigateCrud] = useState(false);
   const [shoulNavigatedMain, setShouldNavigateMain] = useState(false);
@@ -199,15 +199,15 @@ const Login = ({ setUserId, setUserName, setUserEmail, setUserComments }) => {
 
   useEffect(() => {
     if (shoulNavigatedMain) {
-      setLoggedIn(true);
+      // setLoggedIn(true);
       navigate("/main-menu");
     }
     if (shoulNavigateCrud) {
       // Perform navigation after state change
-      setLoggedIn(true);
+      // setLoggedIn(true);
       navigate("/crud");
     }
-  }, [shoulNavigateCrud, shoulNavigatedMain, navigate, setLoggedIn]);
+  }, [shoulNavigateCrud, shoulNavigatedMain, navigate]);
 
   // const deleteData = (id) => {
   //   if (window.confirm('Are you sure?')) {

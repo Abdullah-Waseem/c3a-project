@@ -19,7 +19,7 @@
 }
 
 /* Styles for mobile */
-@media (max-width: 768px) {
+@media (max-width: 913px) {
   .mainMenu {
     background-size: cover; /* Ensure the background image covers the whole container on mobile */
     background-repeat: no-repeat;

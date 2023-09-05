@@ -7,10 +7,10 @@ import AnxietyFormBot from "./components/surveyBot/anxietyFormBot";
 import ConfidenceFormBot from "./components/surveyBot/confidenceFormBot";
 import CRUD from "./CRUD";
 import Login from "./components/Login/Login";
-import { useMyContext } from "./MyContext"; // Import the context hook
+// import { useMyContext } from "./MyContext"; // Import the context hook
 
 function App() {
-  const { loggedIn } = useMyContext(); // Access the loggedIn variable from the context
+  // const { loggedIn } = useMyContext(); // Access the loggedIn variable from the context
 
   const navigate = useNavigate();
 
@@ -32,28 +32,6 @@ function App() {
     setUserComments(email);
   };
   console.log(UserComment);
-  if (!loggedIn) {
-    // If not logged in, show the Login component
-    return (
-      <div className="app">
-        <Routes>
-          <Route
-            path="/"
-            element={
-              <Login
-                setNavigate={navigate}
-                setUserId={handleSetUserId}
-                setUserName={handleSetUserName}
-                setUserEmail={handleSetUserEmail}
-                setUserComments={handleSetUserComments}
-              />
-            }
-          />{" "}
-        </Routes>
-      </div>
-    );
-  }
-
   // If logged in, show the rest of the components with guarded routes
   return (
     <div className="app">

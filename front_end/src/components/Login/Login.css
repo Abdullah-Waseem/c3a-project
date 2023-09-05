@@ -60,7 +60,7 @@ html {
 }
 .logo-container {
   display: flex;
-  justify-content: start;
+  justify-content: flex-start;
 }
 
 /* Logo image */
@@ -167,7 +167,7 @@ html {
 .login-button:active {
   background-color: #003b80;
 }
-@media (max-width: 768px) {
+@media (max-width: 913px) {
   .white-container {
     flex-direction: column; /* Stack the left and right containers vertically on mobile */
     height: auto; /* Remove fixed height to allow it to expand as per content */
