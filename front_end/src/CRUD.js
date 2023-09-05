@@ -151,7 +151,24 @@ function CRUD() {
 
   return (
     <div>
-      <h1 style={{ textAlign: "center", margin: "10px" }}>User Information</h1>
+      <div
+        style={{
+          justifyContent: "center",
+          margin: "10px",
+          display: "flex",
+        }}
+      >
+        <h1>User Information</h1>
+        <button
+          onClick={() => {
+            window.location.href = "/";
+          }}
+          className="crud-logout"
+        >
+          {" "}
+          Logout
+        </button>
+      </div>
       <ToastContainer />
       <div style={{ marginTop: "20px", marginLeft: "115px" }}>
         <div style={{ display: "flex", gap: "20px" }}>
