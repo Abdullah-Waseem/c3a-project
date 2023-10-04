@@ -5,6 +5,7 @@ import "./surveyBot.css";
 import axios from "axios";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { useMyContext } from "../../MyContext"; // Import the context hook
 
 const theme = {
   headerTitle: "Anger Screening Bot",
@@ -21,6 +22,7 @@ const theme = {
 const AngerFormBot = (props) => {
   const { id, name, email, comments } = props;
   const [totalScore, setTotalScore] = useState(0);
+  const { token } = useMyContext();
 
   const handleReview = (steps) => {
     let total = 0;
@@ -69,7 +71,7 @@ const AngerFormBot = (props) => {
   };
 
   const updateData = (id, name, email, comments, total) => {
-    const url = `https://localhost:7013/api/Users/${id}`;
+    const url = `https://localhost:7013/api/Users/${id}?token=${token}`;
     const data = {
       name: name,
       email: email,

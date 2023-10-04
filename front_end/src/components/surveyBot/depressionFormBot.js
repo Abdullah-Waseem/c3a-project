@@ -6,6 +6,8 @@ import "./surveyBot.css";
 import axios from "axios";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { useMyContext } from "../../MyContext"; // Import the context hook
+
 const theme = {
   background: "#f5f8fb",
   fontFamily: "Helvetica Neue",
@@ -105,7 +107,8 @@ Review.propTypes = {
 const DepressionFormBot = (props) => {
   const { id, name, email, comments } = props;
   const [totalScore, setTotalScore] = useState(0);
-
+  const { token } = useMyContext();
+  console.log("token", token);
   const handleReview = (steps) => {
     let total = 0;
     for (let i = 0; i < steps.values.length; i++) {
@@ -122,27 +125,19 @@ const DepressionFormBot = (props) => {
       const url = `https://localhost:7013/api/Emaill?${params.toString()}`;
       axios
         .post(url)
-        .then((response) => {
-          console.log("Email sent successfully");
-        })
+        .then((response) => {})
         .catch((error) => {
           console.error("Error sending email:", error);
         });
-      // console.log("total", total);
+      //
     }
 
-    console.log("total", total);
     setTotalScore(total);
     updateData(id, name, email, comments, total);
   };
 
-  console.log("totalScore", totalScore);
-  console.log("id", id);
-  console.log("name", name);
-  console.log("email", email);
-
   const updateData = (id, name, email, comments, total) => {
-    const url = `https://localhost:7013/api/Users/${id}`;
+    const url = `https://localhost:7013/api/Users/${id}?token=${token}`;
     const data = {
       name: name,
       email: email,
@@ -151,14 +146,17 @@ const DepressionFormBot = (props) => {
       clientOfC3A: "",
       email_Sent: total > 5 ? "Yes" : "No",
     };
+
     axios
       .put(url, data)
       .then((response) => {
         // getData();
         // clear();
+        console.log("response", response);
         toast.success("Data updated successfully");
       })
       .catch((error) => {
+        console.log("error", error);
         toast.error(error);
       });
   };

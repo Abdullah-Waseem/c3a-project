@@ -39,7 +39,7 @@ namespace HoslaBotApi.Controllers
 
 
         [HttpGet]
-        public async Task<string> authenticate(string cms)
+        public async Task<string> authenticate(string cms, string username, string useremail, string usercnic)
         {
             string fullCms = "00000" + cms;
             _logger.LogInformation("Authentication method started for CMS: {cms}", cms);
@@ -58,7 +58,11 @@ namespace HoslaBotApi.Controllers
                     jsonrpc = "2.0",
                     @params = new
                     {
-                        code = fullCms
+                        code = fullCms,
+                        cnic = usercnic,
+                        email = useremail,
+                        name = username
+
                     }
                 };
 

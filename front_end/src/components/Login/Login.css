@@ -35,7 +35,7 @@ html {
   box-shadow: 0px 0px 4px blue;
   position: relative;
   border-radius: 10px;
-  margin: 100px auto;
+  margin: 60px auto;
   width: 100%;
   height: 100%;
   max-width: 150vh;
@@ -86,7 +86,7 @@ html {
   color: #fff; /* Set the text color to white to make it visible on the gradient background */
   margin-bottom: 0px;
   width: 85%;
-  padding-top: 6vh;
+  padding-top: 3vh;
 }
 
 .description {
@@ -114,7 +114,7 @@ html {
 .login-title {
   font-size: 4vh;
   padding-bottom: 3.6vh;
-  padding-top: 12vh;
+  padding-top: 8vh;
   color: #0044ba;
   font-weight: bold;
 }
@@ -167,11 +167,17 @@ html {
 .login-button:active {
   background-color: #003b80;
 }
+.login-p {
+  position: relative;
+  padding-top: 2vh;
+  padding-bottom: 0vh;
+  color: #51a2ff;
+  font-weight: bold;
+}
 @media (max-width: 913px) {
   .white-container {
     flex-direction: column; /* Stack the left and right containers vertically on mobile */
     height: auto; /* Remove fixed height to allow it to expand as per content */
-    max-height: 140vh;
   }
 
   .left-container {

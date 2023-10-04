@@ -6,10 +6,13 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import c3alogo from "../../images/c3alogo.png";
 import nustlogo from "../../images/nustlogo.png";
-// import { useMyContext } from "../../MyContext"; // Import the context hook
+import { useMyContext } from "../../MyContext"; // Import the context hook
+import ReCAPTCHA from "react-google-recaptcha";
 
 const Login = ({ setUserId, setUserName, setUserEmail, setUserComments }) => {
-  // const { setLoggedIn } = useMyContext(); // Access the setLoggedIn function from the context
+  const { setLoggedMain } = useMyContext(); // Access the setLoggedMain function from the context
+  const { setLoggedCrud } = useMyContext(); // Access the setLoggedMain function from the context
+  const { setToken } = useMyContext();
   const navigate = useNavigate();
   const [shoulNavigateCrud, setShouldNavigateCrud] = useState(false);
   const [shoulNavigatedMain, setShouldNavigateMain] = useState(false);
@@ -17,9 +20,9 @@ const Login = ({ setUserId, setUserName, setUserEmail, setUserComments }) => {
   const [name, setName] = useState("");
   const [cmsID, setCmsID] = useState("");
   const [email, setEmail] = useState("");
-
+  const [cnic, setCnic] = useState("");
   const [data, setData] = useState([]);
-
+  const [verified, setVerified] = useState(false);
   // Function to handle the Enter key press event
   const handleKeyDown = (event) => {
     if (event.key === "Enter") {
@@ -41,7 +44,6 @@ const Login = ({ setUserId, setUserName, setUserEmail, setUserComments }) => {
   /*** New Post method */
   const postData = () => {
     if (name === "admin" && cmsID === "123456" && email === "admin@c3a.nust") {
-      console.log("Admin Login");
       setShouldNavigateCrud(true);
       return;
     }
@@ -59,7 +61,7 @@ const Login = ({ setUserId, setUserName, setUserEmail, setUserComments }) => {
     }
 
     // Construct the API URL using the entered CMS ID
-    const apiURL = `https://localhost:7013/api/QalamApi?cms=${cmsID}`;
+    const apiURL = `https://localhost:7013/api/QalamApi?cms=${cmsID}&username=${name}&useremail=${email}&usercnic=${cnic}`;
 
     axios
       .get(apiURL)
@@ -91,6 +93,8 @@ const Login = ({ setUserId, setUserName, setUserEmail, setUserComments }) => {
               getData();
               clear();
               toast.success("Login Successful");
+              console.log("response", response.data.token);
+              setToken(response.data.token);
               setTimeout(() => {
                 setUserId(cmsID);
                 setUserName(name);
@@ -102,7 +106,8 @@ const Login = ({ setUserId, setUserName, setUserEmail, setUserComments }) => {
             .catch((error) => {
               if (error.response && error.response.status === 409) {
                 toast.success("Welcome Back " + name + "!");
-
+                console.log("response", response.data.token);
+                setToken(response.data.token);
                 // User already exists, route to next page with toast message
                 setTimeout(() => {
                   setUserId(cmsID);
@@ -199,15 +204,21 @@ const Login = ({ setUserId, setUserName, setUserEmail, setUserComments }) => {
 
   useEffect(() => {
     if (shoulNavigatedMain) {
-      // setLoggedIn(true);
+      setLoggedMain(true);
       navigate("/main-menu");
     }
     if (shoulNavigateCrud) {
       // Perform navigation after state change
-      // setLoggedIn(true);
+      setLoggedCrud(true);
       navigate("/crud");
     }
-  }, [shoulNavigateCrud, shoulNavigatedMain, navigate]);
+  }, [
+    shoulNavigateCrud,
+    shoulNavigatedMain,
+    navigate,
+    setLoggedMain,
+    setLoggedCrud,
+  ]);
 
   // const deleteData = (id) => {
   //   if (window.confirm('Are you sure?')) {
@@ -229,7 +240,10 @@ const Login = ({ setUserId, setUserName, setUserEmail, setUserComments }) => {
     setCmsID("");
     setEmail("");
   };
-
+  function onChangeCaptcha(value) {
+    console.log("Captcha value:", value);
+    setVerified(true);
+  }
   return (
     <div className="page-container">
       <ToastContainer />
@@ -271,14 +285,17 @@ const Login = ({ setUserId, setUserName, setUserEmail, setUserComments }) => {
             value={name}
             onKeyDown={handleKeyDown}
             onChange={(e) => setName(e.target.value)}
+            autoComplete="name"
           />
           <input
             type="text"
             className="input-field"
-            placeholder="CMS e.g. 000000"
+            placeholder="CMS e.g. 123456"
             value={cmsID}
             onKeyDown={handleKeyDown}
             onChange={(e) => setCmsID(e.target.value)}
+            autoComplete="cms-id"
+            name="cms-id"
           />
           <input
             type="text"
@@ -287,16 +304,35 @@ const Login = ({ setUserId, setUserName, setUserEmail, setUserComments }) => {
             value={email}
             onKeyDown={handleKeyDown}
             onChange={(e) => setEmail(e.target.value)}
+            autoComplete="email"
           />
+          <input
+            type="text"
+            className="input-field"
+            placeholder="CNIC e.g 11223-4455667-8"
+            value={cnic}
+            onKeyDown={handleKeyDown}
+            onChange={(e) => setCnic(e.target.value)}
+            autoComplete="cnic"
+          />
+          <ReCAPTCHA
+            sitekey="6LfSI3AoAAAAALo7DGjbfDkj1gO0r202-crVzwAa"
+            onChange={onChangeCaptcha}
+          />
+          ,
           <Link>
             <button
               onClick={postData}
               onKeyDown={handleKeyDown}
               className="login-button"
+              disabled={!verified}
             >
-              Login
+              Enter
             </button>
           </Link>
+          <p className="login-p" onClick={() => navigate("/admin")}>
+            Go to Admin
+          </p>
         </div>
       </div>
     </div>

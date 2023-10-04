@@ -7,13 +7,15 @@ import AnxietyFormBot from "./components/surveyBot/anxietyFormBot";
 import ConfidenceFormBot from "./components/surveyBot/confidenceFormBot";
 import CRUD from "./CRUD";
 import Login from "./components/Login/Login";
-// import { useMyContext } from "./MyContext"; // Import the context hook
+import RouteGuard from "./components/RouteGuard/RouteGuard";
+import { useMyContext } from "./MyContext"; // Import the context hook
+import AdminLogin from "./components/Admin/Admin";
 
 function App() {
-  // const { loggedIn } = useMyContext(); // Access the loggedIn variable from the context
+  const { loggedMain } = useMyContext(); // Access the loggedMain variable from the context
+  const { loggedCrud } = useMyContext(); // Access the loggedMain variable from the context
 
   const navigate = useNavigate();
-
   const [userId, setUserId] = useState(null);
   const [userName, setUserName] = useState(null);
   const [userEmail, setUserEmail] = useState(null);
@@ -47,53 +49,62 @@ function App() {
               setUserComments={handleSetUserComments}
             />
           }
-        />{" "}
-        <Route path="/main-menu" element={<MainMenu />} />
-        <Route
-          path="/bot"
-          element={
-            <ConfidenceFormBot
-              id={userId}
-              name={userName}
-              email={userEmail}
-              comments={UserComment}
-            />
-          }
         />
-        <Route
-          path="/new-page"
-          element={
-            <AnxietyFormBot
-              id={userId}
-              name={userName}
-              email={userEmail}
-              comments={UserComment}
+        <Route path="/admin" element={<AdminLogin />} /> {/* Add this route */}
+        {loggedMain ? (
+          <>
+            <Route path="/main-menu" element={<MainMenu />} />
+            <Route
+              path="/bot"
+              element={
+                <ConfidenceFormBot
+                  id={userId}
+                  name={userName}
+                  email={userEmail}
+                  comments={UserComment}
+                />
+              }
             />
-          }
-        />
-        <Route
-          path="/new-page2"
-          element={
-            <DepressionFormBot
-              id={userId}
-              name={userName}
-              email={userEmail}
-              comments={UserComment}
+            <Route
+              path="/new-page"
+              element={
+                <AnxietyFormBot
+                  id={userId}
+                  name={userName}
+                  email={userEmail}
+                  comments={UserComment}
+                />
+              }
             />
-          }
-        />
-        <Route
-          path="/new-page3"
-          element={
-            <AngerFormBot
-              id={userId}
-              name={userName}
-              email={userEmail}
-              comments={UserComment}
+            <Route
+              path="/new-page2"
+              element={
+                <DepressionFormBot
+                  id={userId}
+                  name={userName}
+                  email={userEmail}
+                  comments={UserComment}
+                />
+              }
             />
-          }
-        />
-        <Route path="/crud" element={<CRUD />} />
+            <Route
+              path="/new-page3"
+              element={
+                <AngerFormBot
+                  id={userId}
+                  name={userName}
+                  email={userEmail}
+                  comments={UserComment}
+                />
+              }
+            />
+          </>
+        ) : loggedCrud ? (
+          <Route path="/crud" element={<CRUD />} />
+        ) : (
+          // Redirect to login if not authenticated
+          <Route path="/*" element={<RouteGuard />} />
+        )}
       </Routes>
     </div>
   );

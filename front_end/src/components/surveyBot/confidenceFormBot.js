@@ -6,6 +6,8 @@ import axios from "axios";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "./surveyBot.css";
+import { useMyContext } from "../../MyContext"; // Import the context hook
+
 const theme = {
   background: "#f5f8fb",
   fontFamily: "Helvetica Neue",
@@ -84,6 +86,7 @@ Review.propTypes = {
 const ConfidenceFormBot = (props) => {
   const { id, name, email, comments } = props;
   const [totalScore, setTotalScore] = useState(0);
+  const { token } = useMyContext();
 
   const handleReview = (steps) => {
     console.log("steps", steps);
@@ -123,7 +126,7 @@ const ConfidenceFormBot = (props) => {
   console.log("comments", comments);
 
   const updateData = (id, name, email, comments, total) => {
-    const url = `https://localhost:7013/api/Users/${id}`;
+    const url = `https://localhost:7013/api/Users/${id}?token=${token}`;
     const data = {
       name: name,
       email: email,

@@ -11,6 +11,8 @@ import Modal from "react-bootstrap/Modal";
 import { Toast } from "bootstrap";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { useMyContext } from "./MyContext"; // Import the context hook
+
 function CRUD() {
   //
   const [show, setShow] = useState(false);
@@ -36,7 +38,7 @@ function CRUD() {
   const [editAnxietyScore, setEditAnxietyScore] = useState("");
   const [editComment, setEditComment] = useState("");
   const [editClientofC3a, setEditClientofC3a] = useState("");
-
+  const { token } = useMyContext();
   console.log(data);
   useEffect(() => {
     getData();
@@ -44,7 +46,7 @@ function CRUD() {
 
   const getData = () => {
     axios
-      .get("https://localhost:7013/api/Users")
+      .get(`https://localhost:7013/api/Users?token=${token}`)
       .then((response) => {
         setData(response.data);
       })
@@ -54,7 +56,7 @@ function CRUD() {
   };
 
   const postData = () => {
-    const url = "https://localhost:7013/api/Users";
+    const url = "https://localhost:7013/api/Users/?token=${token}";
     const data = {
       cmS_ID: cmsID,
       name: name,
@@ -92,7 +94,7 @@ function CRUD() {
   const handleEdit = (id) => {
     handleShow();
     axios
-      .get(`https://localhost:7013/api/Users/${id}`)
+      .get(`https://localhost:7013/api/Users/${id}?token=${token}`)
       .then((response) => {
         setEditId(id);
         setEditName(response.data.name);
@@ -109,7 +111,7 @@ function CRUD() {
   };
 
   const putData = () => {
-    const url = `https://localhost:7013/api/Users/${editId}`;
+    const url = `https://localhost:7013/api/Users/${editId}?token=${token}`;
     const data = {
       id: editId,
       cmS_ID: editCms,
@@ -138,7 +140,7 @@ function CRUD() {
   const handleDelete = (id) => {
     if (window.confirm("Are you sure to delete this employee") == true) {
       axios
-        .delete(`https://localhost:7013/api/Users/${id}`)
+        .delete(`https://localhost:7013/api/Users/${id}?token=${token}`)
         .then((response) => {
           getData();
           toast.success("Data deleted Successfully");

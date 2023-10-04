@@ -4,10 +4,20 @@ import React, { createContext, useContext, useState } from "react";
 const MyContext = createContext();
 
 export function MyProvider({ children }) {
-  const [loggedIn, setLoggedIn] = useState(false); // Initialize to false
-
+  const [loggedCrud, setLoggedCrud] = useState(false);
+  const [loggedMain, setLoggedMain] = useState(false);
+  const [token, setToken] = useState("");
   return (
-    <MyContext.Provider value={{ loggedIn, setLoggedIn }}>
+    <MyContext.Provider
+      value={{
+        loggedCrud,
+        setLoggedCrud,
+        loggedMain,
+        setLoggedMain,
+        token,
+        setToken,
+      }}
+    >
       {children}
     </MyContext.Provider>
   );
