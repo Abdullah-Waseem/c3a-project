@@ -39,7 +39,15 @@ const AngerFormBot = (props) => {
       });
       const url = `https://localhost:7013/api/Emaill?${params.toString()}`;
       axios
-        .post(url)
+        .post(
+          url,
+          {},
+          {
+            headers: {
+              token: token, // Include the token in the Authorization header
+            },
+          }
+        )
         .then((response) => {
           console.log("Email sent successfully");
         })
@@ -71,7 +79,7 @@ const AngerFormBot = (props) => {
   };
 
   const updateData = (id, name, email, comments, total) => {
-    const url = `https://localhost:7013/api/Users/${id}?token=${token}`;
+    const url = `https://localhost:7013/api/Users/${id}`;
     const data = {
       name: name,
       email: email,
@@ -81,7 +89,11 @@ const AngerFormBot = (props) => {
       email_Sent: total > 5 ? "Yes" : "No",
     };
     axios
-      .put(url, data)
+      .put(url, data, {
+        headers: {
+          token, //nclude the token in the Authorization header
+        },
+      })
       .then((response) => {
         // getData();
         // clear();

@@ -14,7 +14,11 @@ const updateData = (id) => {
     anger_Score: totalScore,
   };
   axios
-    .put(url, data)
+    .put(url, data, {
+      headers: {
+        token, //nclude the token in the Authorization header
+      },
+    })
     .then((response) => {
       // getData();
       clear();

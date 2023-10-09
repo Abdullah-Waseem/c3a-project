@@ -124,10 +124,20 @@ const DepressionFormBot = (props) => {
       });
       const url = `https://localhost:7013/api/Emaill?${params.toString()}`;
       axios
-        .post(url)
-        .then((response) => {})
+        .post(
+          url,
+          {},
+          {
+            headers: {
+              token: token, // Include the token in the Authorization header
+            },
+          }
+        )
+        .then((response) => {
+          console.log("email response", response);
+        })
         .catch((error) => {
-          console.error("Error sending email:", error);
+          console.log("Error sending email:", error.response);
         });
       //
     }
@@ -137,7 +147,7 @@ const DepressionFormBot = (props) => {
   };
 
   const updateData = (id, name, email, comments, total) => {
-    const url = `https://localhost:7013/api/Users/${id}?token=${token}`;
+    const url = `https://localhost:7013/api/Users/${id}`;
     const data = {
       name: name,
       email: email,
@@ -148,7 +158,11 @@ const DepressionFormBot = (props) => {
     };
 
     axios
-      .put(url, data)
+      .put(url, data, {
+        headers: {
+          token, //nclude the token in the Authorization header
+        },
+      })
       .then((response) => {
         // getData();
         // clear();

@@ -16,9 +16,16 @@ import { useMyContext } from "./MyContext"; // Import the context hook
 function CRUD() {
   //
   const [show, setShow] = useState(false);
+  const [show2, setShow2] = useState(false);
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+
+  const handleClose2 = () => setShow2(false);
+  const handleShow2 = () => setShow2(true);
+  const [currentUsername, setCurrentUsername] = useState("");
+  const [currentPassword, setCurrentPassword] = useState("");
+  const [newpassword, setNewPassword] = useState("");
   const [name, setName] = useState("");
   const [cmsID, setcmsID] = useState("");
   const [Email, setEmail] = useState("");
@@ -46,7 +53,11 @@ function CRUD() {
 
   const getData = () => {
     axios
-      .get(`https://localhost:7013/api/Users?token=${token}`)
+      .get(`https://localhost:7013/api/Users`, {
+        headers: {
+          token, // Include the token in the Authorization header
+        },
+      })
       .then((response) => {
         setData(response.data);
       })
@@ -94,7 +105,11 @@ function CRUD() {
   const handleEdit = (id) => {
     handleShow();
     axios
-      .get(`https://localhost:7013/api/Users/${id}?token=${token}`)
+      .get(`https://localhost:7013/api/Users/${id}`, {
+        headers: {
+          token, // Include the token in the Authorization header
+        },
+      })
       .then((response) => {
         setEditId(id);
         setEditName(response.data.name);
@@ -111,7 +126,7 @@ function CRUD() {
   };
 
   const putData = () => {
-    const url = `https://localhost:7013/api/Users/${editId}?token=${token}`;
+    const url = `https://localhost:7013/api/Users/${editId}`;
     const data = {
       id: editId,
       cmS_ID: editCms,
@@ -126,21 +141,31 @@ function CRUD() {
       email_Sent: "Yes",
     };
     axios
-      .put(url, data)
+      .put(url, data, {
+        headers: {
+          token, // Include the token in the Authorization header
+        },
+      })
       .then((response) => {
         getData();
         clear();
         toast.success("Data updated Successfully");
+        console.log(response);
       })
       .catch((error) => {
         toast.error(error);
+        console.log(error.response);
       });
   };
 
   const handleDelete = (id) => {
     if (window.confirm("Are you sure to delete this employee") == true) {
       axios
-        .delete(`https://localhost:7013/api/Users/${id}?token=${token}`)
+        .delete(`https://localhost:7013/api/Users/${id}`, {
+          headers: {
+            token, //nclude the token in the Authorization header
+          },
+        })
         .then((response) => {
           getData();
           toast.success("Data deleted Successfully");
@@ -149,6 +174,31 @@ function CRUD() {
           toast.error(error);
         });
     }
+  };
+  const updatePassword = () => {
+    // Add logic to send a request to your API with the updated password
+    console.log(currentUsername, currentPassword, newpassword, token);
+    axios
+      .post(
+        `https://localhost:7013/api/Admin/updatepassword/?username=${currentUsername}&newPassword=${newpassword}&oldpassword=${currentPassword}`,
+        {},
+        {
+          headers: {
+            token: token, // Include the token in the Authorization header
+          },
+        }
+      )
+      .then((response) => {
+        if (response.status === 200) {
+          toast.success("Password Changed Successfully");
+        } else {
+          toast.error("Password Change Failed. Please try again.");
+        }
+      })
+      .catch((error) => {
+        toast.error("Password Change Failed. Please try again.");
+        console.log(error.response);
+      });
   };
 
   return (
@@ -456,6 +506,61 @@ function CRUD() {
           </Button>
         </Modal.Footer>
       </Modal>
+      <Modal show={show2} onHide={handleClose2}>
+        <Modal.Header closeButton>
+          <Modal.Title>Change Your Password</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <div>
+            <Row className="mb-3">
+              <label className="form-label">Username</label>
+              <input
+                type="text"
+                className="form-control"
+                placeholder="Enter Username"
+                value={currentUsername}
+                onChange={(e) => setCurrentUsername(e.target.value)}
+              />
+            </Row>
+            <Row className="mb-3">
+              <label className="form-label">Old Password</label>
+              <input
+                type="text"
+                className="form-control"
+                placeholder="Enter old password"
+                value={currentPassword}
+                onChange={(e) => setCurrentPassword(e.target.value)}
+              />
+            </Row>
+            <Row className="mb-3">
+              <label className="form-label">New Password</label>
+              <input
+                type="text"
+                className="form-control"
+                placeholder="Enter new password"
+                value={newpassword}
+                onChange={(e) => setNewPassword(e.target.value)}
+              />
+            </Row>
+          </div>
+        </Modal.Body>
+
+        <Modal.Footer>
+          <Button variant="secondary" onClick={handleClose}>
+            Close
+          </Button>
+          <Button variant="primary" onClick={updatePassword}>
+            Save Changes
+          </Button>
+        </Modal.Footer>
+      </Modal>
+      <button
+        onClick={handleShow2}
+        className="crud-btn btn btn-primary"
+        style={{ right: "0px", position: "absolute", margin: "20px" }}
+      >
+        Change Password
+      </button>
     </div>
   );
 }

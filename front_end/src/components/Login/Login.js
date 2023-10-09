@@ -22,12 +22,32 @@ const Login = ({ setUserId, setUserName, setUserEmail, setUserComments }) => {
   const [email, setEmail] = useState("");
   const [cnic, setCnic] = useState("");
   const [data, setData] = useState([]);
+
   const [verified, setVerified] = useState(false);
   // Function to handle the Enter key press event
   const handleKeyDown = (event) => {
     if (event.key === "Enter") {
       postData();
     }
+  };
+  const handleCNICChange = (e) => {
+    const inputCNIC = e.target.value.replace(/[^0-9]/g, ""); // Remove non-digit characters
+    let formatted = "";
+
+    if (inputCNIC.length <= 5) {
+      formatted = inputCNIC;
+    } else if (inputCNIC.length <= 12) {
+      formatted = inputCNIC.slice(0, 5) + "-" + inputCNIC.slice(5);
+    } else {
+      formatted =
+        inputCNIC.slice(0, 5) +
+        "-" +
+        inputCNIC.slice(5, 12) +
+        "-" +
+        inputCNIC.slice(12, 13);
+    }
+
+    setCnic(formatted);
   };
 
   const getData = () => {
@@ -43,10 +63,6 @@ const Login = ({ setUserId, setUserName, setUserEmail, setUserComments }) => {
 
   /*** New Post method */
   const postData = () => {
-    if (name === "admin" && cmsID === "123456" && email === "admin@c3a.nust") {
-      setShouldNavigateCrud(true);
-      return;
-    }
     // Check valid cms
     if (cmsID.length !== 6) {
       toast.error("Please enter a valid 6-digit CMS ID");
@@ -118,18 +134,18 @@ const Login = ({ setUserId, setUserName, setUserEmail, setUserComments }) => {
                 }, 1000);
               } else if (error.response && error.response.status === 500) {
                 toast.error("User with this CMS ID already exists");
-                toast.error("Please enter correct name and email");
+                toast.error("Please Enter Correct Details");
               } else {
                 toast.error(error);
               }
             });
         } else {
-          toast.error("CMS ID does not exist in our records");
+          toast.error("Pleas Enter Correct Details");
         }
       })
       .catch((error) => {
         // Handle API call error
-        toast.error("An error occurred while checking the CMS ID");
+        toast.error("An error occurred while checking the details");
       });
   };
 
@@ -284,8 +300,11 @@ const Login = ({ setUserId, setUserName, setUserEmail, setUserComments }) => {
             placeholder="Your name"
             value={name}
             onKeyDown={handleKeyDown}
-            onChange={(e) => setName(e.target.value)}
+            onChange={(e) => {
+              setName(e.target.value.replace(/\d/g, ""));
+            }}
             autoComplete="name"
+            maxLength={35}
           />
           <input
             type="text"
@@ -293,18 +312,20 @@ const Login = ({ setUserId, setUserName, setUserEmail, setUserComments }) => {
             placeholder="CMS e.g. 123456"
             value={cmsID}
             onKeyDown={handleKeyDown}
-            onChange={(e) => setCmsID(e.target.value)}
+            onChange={(e) => setCmsID(e.target.value.replace(/\D/g, ""))}
             autoComplete="cms-id"
             name="cms-id"
+            maxLength={6}
           />
           <input
             type="text"
             className="input-field"
-            placeholder="Your email"
+            placeholder="Personal/Registered Email"
             value={email}
             onKeyDown={handleKeyDown}
             onChange={(e) => setEmail(e.target.value)}
             autoComplete="email"
+            maxLength={35}
           />
           <input
             type="text"
@@ -312,14 +333,14 @@ const Login = ({ setUserId, setUserName, setUserEmail, setUserComments }) => {
             placeholder="CNIC e.g 11223-4455667-8"
             value={cnic}
             onKeyDown={handleKeyDown}
-            onChange={(e) => setCnic(e.target.value)}
+            onChange={handleCNICChange}
+            maxLength={15}
             autoComplete="cnic"
           />
           <ReCAPTCHA
             sitekey="6LfSI3AoAAAAALo7DGjbfDkj1gO0r202-crVzwAa"
             onChange={onChangeCaptcha}
           />
-          ,
           <Link>
             <button
               onClick={postData}
@@ -330,9 +351,6 @@ const Login = ({ setUserId, setUserName, setUserEmail, setUserComments }) => {
               Enter
             </button>
           </Link>
-          <p className="login-p" onClick={() => navigate("/admin")}>
-            Go to Admin
-          </p>
         </div>
       </div>
     </div>
