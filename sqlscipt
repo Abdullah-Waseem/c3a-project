@@ -1,6 +1,6 @@
 USE [master]
 GO
-/****** Object:  Database [HOSLABOT]    Script Date: 9/1/2023 4:56:05 PM ******/
+/****** Object:  Database [HOSLABOT]    Script Date: 10/9/2023 12:42:08 PM ******/
 CREATE DATABASE [HOSLABOT]
  CONTAINMENT = NONE
  ON  PRIMARY 
@@ -82,7 +82,36 @@ ALTER DATABASE [HOSLABOT] SET QUERY_STORE (OPERATION_MODE = READ_WRITE, CLEANUP_
 GO
 USE [HOSLABOT]
 GO
-/****** Object:  Table [dbo].[C3A]    Script Date: 9/1/2023 4:56:05 PM ******/
+/****** Object:  Table [dbo].[__EFMigrationsHistory]    Script Date: 10/9/2023 12:42:08 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[__EFMigrationsHistory](
+	[MigrationId] [nvarchar](150) NOT NULL,
+	[ProductVersion] [nvarchar](32) NOT NULL,
+ CONSTRAINT [PK___EFMigrationsHistory] PRIMARY KEY CLUSTERED 
+(
+	[MigrationId] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[admins]    Script Date: 10/9/2023 12:42:09 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[admins](
+	[Id] [int] IDENTITY(1,1) NOT NULL,
+	[Username] [nvarchar](max) NOT NULL,
+	[Password] [nvarchar](max) NOT NULL,
+ CONSTRAINT [PK_admins] PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[C3A]    Script Date: 10/9/2023 12:42:09 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
