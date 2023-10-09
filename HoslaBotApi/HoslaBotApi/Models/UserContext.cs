@@ -8,5 +8,6 @@ namespace HoslaBotApi.Models
         public UserContext(DbContextOptions<UserContext> options) : base(options) {
         }
         public DbSet<User> C3A { get; set; }
+        public DbSet<Admin> admins { get; set; }
     }
 }

@@ -1,9 +1,13 @@
 ﻿using HoslaBotApi.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
+using Microsoft.IdentityModel.Tokens;
 using System;
+using System.IdentityModel.Tokens.Jwt;
 using System.Net;
 using System.Net.Mail;
+using System.Security.Claims;
+using System.Text;
 
 namespace HoslaBotApi.Controllers
 {
@@ -12,6 +16,7 @@ namespace HoslaBotApi.Controllers
     public class EmaillController : ControllerBase
     {
         private readonly IConfiguration _configuration;
+        private readonly string _secretKey = "AAimnpoXycH1V2IfDeccFbVvF5+k6586AMoGF4GP7H0= ";
 
         public EmaillController(IConfiguration configuration)
         {
@@ -20,8 +25,14 @@ namespace HoslaBotApi.Controllers
 
         // POST api/<EmaillController>
         [HttpPost]
-        public void Post(string to)
+        public void Post(string to, [FromHeader] string token)
         {
+            var auth = AuthenticateToken(token);
+
+            if (auth == null)
+            {
+                return;
+            }
             string fromEmail = _configuration["Email:From"];
             string password = _configuration["Email:Password"];
             string host = _configuration["Email:Host"];
@@ -58,6 +69,44 @@ namespace HoslaBotApi.Controllers
             mail.To.Add(mailAddress);
 
             smtp.Send(mail);
+        }
+        private ClaimsPrincipal AuthenticateToken(string token)
+        {
+            /*if (user_token != token)
+            {
+                return null;
+            }*/
+
+            //Authentication logic
+            var tokenHandler = new JwtSecurityTokenHandler();
+            var validationParameters = new TokenValidationParameters
+            {
+                ValidateIssuerSigningKey = true,
+                IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_secretKey)),
+                ValidateIssuer = false,
+                ValidateAudience = false,
+                ValidateLifetime = false
+            };
+
+            try
+            {
+                // Validate the token
+                SecurityToken validatedToken;
+                var tokenValidationResult = tokenHandler.ValidateToken(token, validationParameters, out validatedToken);
+
+                return tokenValidationResult;
+            }
+            catch (SecurityTokenValidationException ex)
+            {
+                // This exception is thrown when token validation fails (e.g., invalid signature, expired token, etc.)
+                return null;
+            }
+            catch (Exception ex)
+            {
+                // Handle other exceptions that may occur during token validation
+                return null;
+            }
+
         }
     }
 }

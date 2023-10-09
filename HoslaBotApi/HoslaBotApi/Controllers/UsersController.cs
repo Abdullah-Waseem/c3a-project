@@ -30,7 +30,7 @@ namespace HoslaBotApi.Controllers
 
         // GET: api/Users
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<User>>> GetUsers(string token)
+        public async Task<ActionResult<IEnumerable<User>>> GetUsers([FromHeader] string token)
         {
             var auth = AuthenticateToken(token);
 
@@ -48,7 +48,7 @@ namespace HoslaBotApi.Controllers
 
         // GET: api/Users/5
         [HttpGet("{cms_id}")]
-        public async Task<ActionResult<User>> GetUser(int cms_id, string token)
+        public async Task<ActionResult<User>> GetUser(int cms_id, [FromHeader] string token)
         {
             var auth = AuthenticateToken(token);
 
@@ -74,7 +74,7 @@ namespace HoslaBotApi.Controllers
         // PUT: api/Users/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{cms_id}")]
-        public async Task<IActionResult> PutUser(int cms_id, User updatedUser, string token)
+        public async Task<IActionResult> PutUser(int cms_id, User updatedUser, [FromHeader] string token)
         {
             var auth = AuthenticateToken(token);
 
@@ -180,7 +180,7 @@ namespace HoslaBotApi.Controllers
 
         // DELETE: api/Users/5
         [HttpDelete("{cms_id}")]
-        public async Task<IActionResult> DeleteUser(int cms_id, string token)
+        public async Task<IActionResult> DeleteUser(int cms_id, [FromHeader] string token)
         {
 
             var auth = AuthenticateToken(token);
