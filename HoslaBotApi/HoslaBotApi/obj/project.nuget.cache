@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "pMkDEE1jFBmGkYC3PQij/pHhfyPUI2/0lZzDVRuF9mBmOdA5hy5Pis+zQVo4leoHmsPB/MYhwN1IDMlTJlDfjQ==",
+  "dgSpecHash": "G5LAYhNmDjzqngevjmbn2kmsbc79bGQtf8NIEF0QnsWxoyJWwrUoYtuCwP5nbv2gim0JlsF3tSXL+mGmtxtPMw==",
   "success": true,
-  "projectFilePath": "C:\\Work\\C3A Project\\HoslaBotApi\\HoslaBotApi\\HoslaBotApi.csproj",
+  "projectFilePath": "C:\\Work\\C3A bot\\c3a-project\\HoslaBotApi\\HoslaBotApi\\HoslaBotApi.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\MorixX-PC\\.nuget\\packages\\azure.core\\1.24.0\\azure.core.1.24.0.nupkg.sha512",
     "C:\\Users\\MorixX-PC\\.nuget\\packages\\azure.identity\\1.6.0\\azure.identity.1.6.0.nupkg.sha512",

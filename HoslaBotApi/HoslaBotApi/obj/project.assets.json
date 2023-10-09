@@ -12561,11 +12561,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Work\\C3A Project\\HoslaBotApi\\HoslaBotApi\\HoslaBotApi.csproj",
+      "projectUniqueName": "C:\\Work\\C3A bot\\c3a-project\\HoslaBotApi\\HoslaBotApi\\HoslaBotApi.csproj",
       "projectName": "HoslaBotApi",
-      "projectPath": "C:\\Work\\C3A Project\\HoslaBotApi\\HoslaBotApi\\HoslaBotApi.csproj",
+      "projectPath": "C:\\Work\\C3A bot\\c3a-project\\HoslaBotApi\\HoslaBotApi\\HoslaBotApi.csproj",
       "packagesPath": "C:\\Users\\MorixX-PC\\.nuget\\packages\\",
-      "outputPath": "C:\\Work\\C3A Project\\HoslaBotApi\\HoslaBotApi\\obj\\",
+      "outputPath": "C:\\Work\\C3A bot\\c3a-project\\HoslaBotApi\\HoslaBotApi\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\MorixX-PC\\AppData\\Roaming\\NuGet\\NuGet.Config",

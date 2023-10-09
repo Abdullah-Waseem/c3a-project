@@ -22,46 +22,27 @@ namespace HoslaBotApi.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("HoslaBotApi.Models.User", b =>
+            modelBuilder.Entity("HoslaBotApi.Models.Admin", b =>
                 {
-                    b.Property<int>("CMS_ID")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("CMS_ID"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int?>("Anger_Score")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("Anxiety_Score")
-                        .HasColumnType("int");
-
-                    b.Property<string>("ClientOfC3A")
+                    b.Property<string>("Password")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Comments")
+                    b.Property<string>("Username")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("Depression_Score")
-                        .HasColumnType("int");
-
-                    b.Property<string>("EMAIL")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("NAME")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int?>("Selfesteem_Score")
-                        .HasColumnType("int");
-
-                    b.HasKey("CMS_ID");
-
-                    b.ToTable("C3A");
+                    b.HasKey("Id");
+    
+                    b.ToTable("admins");
                 });
+
 #pragma warning restore 612, 618
         }
     }
