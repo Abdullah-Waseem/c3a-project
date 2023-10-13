@@ -104,7 +104,11 @@ const Login = ({ setUserId, setUserName, setUserEmail, setUserComments }) => {
           };
 
           axios
-            .post(url, data)
+            .post(url, data, {
+              headers: {
+                token: "a", // Include the token in the Authorization header
+              },
+            })
             .then((response) => {
               getData();
               clear();
@@ -120,6 +124,7 @@ const Login = ({ setUserId, setUserName, setUserEmail, setUserComments }) => {
               }, 1000);
             })
             .catch((error) => {
+              // check if the user already exists
               if (error.response && error.response.status === 409) {
                 toast.success("Welcome Back " + name + "!");
                 console.log("response", response.data.token);
@@ -132,11 +137,22 @@ const Login = ({ setUserId, setUserName, setUserEmail, setUserComments }) => {
                   setUserComments("");
                   setShouldNavigateMain(true);
                 }, 1000);
+                // cms exists but name/email is different in database
               } else if (error.response && error.response.status === 500) {
-                toast.error("User with this CMS ID already exists");
-                toast.error("Please Enter Correct Details");
+                toast.success("Welcome Back " + name + "!");
+                console.log("response", response.data.token);
+                setToken(response.data.token);
+                // User already exists, route to next page with toast message
+                setTimeout(() => {
+                  setUserId(cmsID);
+                  setUserName(name);
+                  setUserEmail(email);
+                  setUserComments("");
+                  setShouldNavigateMain(true);
+                }, 1000);
               } else {
                 toast.error(error);
+                console.log("error in login", error);
               }
             });
         } else {

@@ -7,6 +7,7 @@ export function MyProvider({ children }) {
   const [loggedCrud, setLoggedCrud] = useState(false);
   const [loggedMain, setLoggedMain] = useState(false);
   const [token, setToken] = useState("");
+  const [adminToken, setAdminToken] = useState("");
   return (
     <MyContext.Provider
       value={{
@@ -16,6 +17,8 @@ export function MyProvider({ children }) {
         setLoggedMain,
         token,
         setToken,
+        adminToken,
+        setAdminToken,
       }}
     >
       {children}

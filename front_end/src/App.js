@@ -14,13 +14,13 @@ import AdminLogin from "./components/Admin/Admin";
 function App() {
   const { loggedMain } = useMyContext(); // Access the loggedMain variable from the context
   const { loggedCrud } = useMyContext(); // Access the loggedMain variable from the context
-
+  const adminToken = sessionStorage.getItem("adminToken");
   const navigate = useNavigate();
   const [userId, setUserId] = useState(null);
   const [userName, setUserName] = useState(null);
   const [userEmail, setUserEmail] = useState(null);
   const [UserComment, setUserComments] = useState(null);
-
+  const isAdminAuthenticated = adminToken && adminToken.length > 0;
   const handleSetUserId = (id) => {
     setUserId(id);
   };
@@ -99,7 +99,7 @@ function App() {
               }
             />
           </>
-        ) : loggedCrud ? (
+        ) : isAdminAuthenticated ? (
           <Route path="/crud" element={<CRUD />} />
         ) : (
           // Redirect to login if not authenticated

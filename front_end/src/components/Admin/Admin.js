@@ -14,7 +14,7 @@ const AdminLogin = () => {
   const [password, setPassword] = useState("");
   const { setLoggedCrud } = useMyContext(); // Access the setLoggedMain function from the context
   const [shoulNavigateCrud, setShouldNavigateCrud] = useState(false);
-  const { setToken } = useMyContext();
+  const { setAdminToken } = useMyContext();
   const [verified, setVerified] = useState(false);
 
   const callAdminLoginApi = () => {
@@ -26,14 +26,16 @@ const AdminLogin = () => {
       })
       .then((response) => {
         // API call successful, get the token
-        setToken(response.data.token);
+        sessionStorage.setItem("adminToken", response.data.token);
+        setAdminToken(response.data.token);
         // Store the token securely (e.g., in localStorage or a secure cookie)
         // Navigate to the admin dashboard or perform any other actions as needed
         setShouldNavigateCrud(true);
       })
       .catch((error) => {
         // API call failed, display an error toast
-        toast.error("Admin login failed. Palease check your credentials.");
+        toast.error("Admin login failed. Please check your credentials.");
+        console.log("Admin login error:", error);
       });
   };
 
@@ -61,6 +63,7 @@ const AdminLogin = () => {
             placeholder="Username"
             value={username}
             onChange={(e) => setUsername(e.target.value)}
+            maxLength={10}
           />
           <input
             type="password"
@@ -68,6 +71,7 @@ const AdminLogin = () => {
             placeholder="Password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
+            maxLength={35}
           />
           <ReCAPTCHA
             sitekey="6LfSI3AoAAAAALo7DGjbfDkj1gO0r202-crVzwAa"

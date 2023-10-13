@@ -45,7 +45,10 @@ function CRUD() {
   const [editAnxietyScore, setEditAnxietyScore] = useState("");
   const [editComment, setEditComment] = useState("");
   const [editClientofC3a, setEditClientofC3a] = useState("");
-  const { token } = useMyContext();
+  const { adminToken } = useMyContext();
+
+  const adminToken2 = sessionStorage.getItem("adminToken");
+  const token = adminToken2;
   console.log(data);
   useEffect(() => {
     getData();
@@ -67,7 +70,7 @@ function CRUD() {
   };
 
   const postData = () => {
-    const url = "https://localhost:7013/api/Users/?token=${token}";
+    const url = "https://localhost:7013/api/Users";
     const data = {
       cmS_ID: cmsID,
       name: name,
@@ -81,14 +84,20 @@ function CRUD() {
       email_Sent: "Yes",
     };
     axios
-      .post(url, data)
+      .post(url, data, {
+        headers: {
+          token, // Include the token in the Authorization header
+        },
+      })
       .then((response) => {
         getData();
         clear();
         toast.success("Data added Successfully");
       })
       .catch((error) => {
-        toast.error(error);
+        if (error.response && error.response.status === 500) {
+          toast.error("Record of this CMS already exists");
+        }
       });
   };
 
@@ -100,6 +109,11 @@ function CRUD() {
     setAnxietyScore("");
     setDepressionScore("");
     setAngerScore("");
+  };
+  const clear2 = () => {
+    setCurrentUsername("");
+    setCurrentPassword("");
+    setNewPassword("");
   };
 
   const handleEdit = (id) => {
@@ -159,7 +173,7 @@ function CRUD() {
   };
 
   const handleDelete = (id) => {
-    if (window.confirm("Are you sure to delete this employee") == true) {
+    if (window.confirm("Are you sure to delete this record") === true) {
       axios
         .delete(`https://localhost:7013/api/Users/${id}`, {
           headers: {
@@ -191,13 +205,14 @@ function CRUD() {
       .then((response) => {
         if (response.status === 200) {
           toast.success("Password Changed Successfully");
+          clear2();
         } else {
-          toast.error("Password Change Failed. Please try again.");
+          toast.error("Invalid Username/Old Password");
         }
       })
       .catch((error) => {
         toast.error("Password Change Failed. Please try again.");
-        console.log(error.response);
+        console.log(error);
       });
   };
 
@@ -211,9 +226,13 @@ function CRUD() {
         }}
       >
         <h1>User Information</h1>
+        <button onClick={handleShow2} className="crud-change-password">
+          Change Password
+        </button>
         <button
           onClick={() => {
             window.location.href = "/";
+            sessionStorage.setItem("adminToken", "");
           }}
           className="crud-logout"
         >
@@ -230,7 +249,8 @@ function CRUD() {
               className="form-control"
               placeholder="Enter Name"
               value={name}
-              onChange={(e) => setName(e.target.value)}
+              onChange={(e) => setName(e.target.value.replace(/\d/g, ""))}
+              maxLength={35}
             />
           </Col>
           <Col>
@@ -239,7 +259,8 @@ function CRUD() {
               className="form-control"
               placeholder="Enter CMS ID"
               value={cmsID}
-              onChange={(e) => setcmsID(e.target.value)}
+              onChange={(e) => setcmsID(e.target.value.replace(/\D/g, ""))}
+              maxLength={6}
             />
           </Col>
           <Col>
@@ -249,6 +270,7 @@ function CRUD() {
               placeholder="Enter Email"
               value={Email}
               onChange={(e) => setEmail(e.target.value)}
+              maxLength={35}
             />
           </Col>
           <Col>
@@ -257,7 +279,8 @@ function CRUD() {
               className="form-control"
               placeholder="Enter Anger Score"
               value={AngerScore}
-              onChange={(e) => setAngerScore(e.target.value)}
+              onChange={(e) => setAngerScore(e.target.value.replace(/\D/g, ""))}
+              maxLength={2}
             />
           </Col>
         </div>
@@ -268,7 +291,10 @@ function CRUD() {
               className="form-control"
               placeholder="Enter Depression Score"
               value={DepressionScore}
-              onChange={(e) => setDepressionScore(e.target.value)}
+              onChange={(e) =>
+                setDepressionScore(e.target.value.replace(/\D/g, ""))
+              }
+              maxLength={2}
             />
           </Col>
           <Col>
@@ -277,7 +303,10 @@ function CRUD() {
               className="form-control"
               placeholder="Enter Anxiety Score"
               value={AnxietyScore}
-              onChange={(e) => setAnxietyScore(e.target.value)}
+              onChange={(e) =>
+                setAnxietyScore(e.target.value.replace(/\D/g, ""))
+              }
+              maxLength={2}
             />
           </Col>
           <Col>
@@ -286,7 +315,10 @@ function CRUD() {
               className="form-control"
               placeholder="Enter Selfesteem Score"
               value={SelfesteemScore}
-              onChange={(e) => setSelfEsteemScore(e.target.value)}
+              onChange={(e) =>
+                setSelfEsteemScore(e.target.value.replace(/\D/g, ""))
+              }
+              maxLength={2}
             />
           </Col>
           <Col>
@@ -391,7 +423,10 @@ function CRUD() {
                   className="form-control"
                   placeholder="Enter Name"
                   value={editName}
-                  onChange={(e) => setEditName(e.target.value)}
+                  onChange={(e) =>
+                    setEditName(e.target.value.replace(/\d/g, ""))
+                  }
+                  maxLength={35}
                 />
               </Col>
               <Col>
@@ -401,7 +436,10 @@ function CRUD() {
                   className="form-control"
                   placeholder="Enter CMS ID"
                   value={editCms}
-                  onChange={(e) => setEditCms(e.target.value)}
+                  onChange={(e) =>
+                    setEditCms(e.target.value.replace(/\D/g, ""))
+                  }
+                  maxLength={6}
                 />
               </Col>
             </Row>
@@ -414,6 +452,7 @@ function CRUD() {
                   placeholder="Enter Email"
                   value={editEmail}
                   onChange={(e) => setEditEmail(e.target.value)}
+                  maxLength={35}
                 />
               </Col>
               <Col>
@@ -423,7 +462,10 @@ function CRUD() {
                   className="form-control"
                   placeholder="Enter Anger Score"
                   value={editAngerScore}
-                  onChange={(e) => setEditAngerScore(e.target.value)}
+                  onChange={(e) =>
+                    setEditAngerScore(e.target.value.replace(/\D/g, ""))
+                  }
+                  maxLength={2}
                 />
               </Col>
             </Row>
@@ -435,7 +477,10 @@ function CRUD() {
                   className="form-control"
                   placeholder="Enter Depression Score"
                   value={editDepressionScore}
-                  onChange={(e) => setEditDepressionScore(e.target.value)}
+                  onChange={(e) =>
+                    setEditDepressionScore(e.target.value.replace(/\D/g, ""))
+                  }
+                  maxLength={2}
                 />
               </Col>
               <Col>
@@ -445,7 +490,10 @@ function CRUD() {
                   className="form-control"
                   placeholder="Enter Anxiety Score"
                   value={editAnxietyScore}
-                  onChange={(e) => setEditAnxietyScore(e.target.value)}
+                  onChange={(e) =>
+                    setEditAnxietyScore(e.target.value.replace(/\D/g, ""))
+                  }
+                  maxLength={2}
                 />
               </Col>
             </Row>
@@ -457,7 +505,10 @@ function CRUD() {
                   className="form-control"
                   placeholder="Enter Selfesteem Score"
                   value={editSelfesteemScore}
-                  onChange={(e) => setEditSelfesteemScore(e.target.value)}
+                  onChange={(e) =>
+                    setEditSelfesteemScore(e.target.value.replace(/\D/g, ""))
+                  }
+                  maxLength={2}
                 />
               </Col>
               <Col>
@@ -467,7 +518,10 @@ function CRUD() {
                   className="form-control"
                   placeholder="Enter Client of C3A"
                   value={editClientofC3a}
-                  onChange={(e) => setEditClientofC3a(e.target.value)}
+                  onChange={(e) =>
+                    setEditClientofC3a(e.target.value.replace(/\d/g, ""))
+                  }
+                  maxLength={3}
                 />
               </Col>
             </Row>
@@ -479,6 +533,7 @@ function CRUD() {
                   placeholder="Enter Comment"
                   value={editComment}
                   onChange={(e) => setEditComment(e.target.value)}
+                  maxLength={35}
                 />
               </Col>
               <Col
@@ -501,9 +556,6 @@ function CRUD() {
           <Button variant="secondary" onClick={handleClose}>
             Close
           </Button>
-          <Button variant="primary" onClick={handleClose}>
-            Save Changes
-          </Button>
         </Modal.Footer>
       </Modal>
       <Modal show={show2} onHide={handleClose2}>
@@ -520,6 +572,7 @@ function CRUD() {
                 placeholder="Enter Username"
                 value={currentUsername}
                 onChange={(e) => setCurrentUsername(e.target.value)}
+                maxLength={10}
               />
             </Row>
             <Row className="mb-3">
@@ -530,6 +583,7 @@ function CRUD() {
                 placeholder="Enter old password"
                 value={currentPassword}
                 onChange={(e) => setCurrentPassword(e.target.value)}
+                maxLength={35}
               />
             </Row>
             <Row className="mb-3">
@@ -540,13 +594,14 @@ function CRUD() {
                 placeholder="Enter new password"
                 value={newpassword}
                 onChange={(e) => setNewPassword(e.target.value)}
+                maxLength={35}
               />
             </Row>
           </div>
         </Modal.Body>
 
         <Modal.Footer>
-          <Button variant="secondary" onClick={handleClose}>
+          <Button variant="secondary" onClick={handleClose2}>
             Close
           </Button>
           <Button variant="primary" onClick={updatePassword}>
@@ -554,13 +609,6 @@ function CRUD() {
           </Button>
         </Modal.Footer>
       </Modal>
-      <button
-        onClick={handleShow2}
-        className="crud-btn btn btn-primary"
-        style={{ right: "0px", position: "absolute", margin: "20px" }}
-      >
-        Change Password
-      </button>
     </div>
   );
 }

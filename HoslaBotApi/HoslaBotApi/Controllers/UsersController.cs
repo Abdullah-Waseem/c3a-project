@@ -148,35 +148,63 @@ namespace HoslaBotApi.Controllers
         // POST: api/Users
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<User>> PostUser(User user)
+        public async Task<ActionResult<User>> PostUser(User user, [FromHeader(Name = "token")] string token)
         {
-            var existingUser = await _context.C3A.FirstOrDefaultAsync(u =>
-            u.EMAIL == user.EMAIL &&
-            u.NAME == user.NAME &&
-            u.CMS_ID == user.CMS_ID);
-
-            if (existingUser != null)
+            var auth = AuthenticateToken(token);
+            if (auth==null)
             {
-                // User with the same details already exists, return a conflict response
-                var tokens = GenerateToken(existingUser.CMS_ID.ToString());
-                user_token = tokens;
-                return Ok(new { Token = tokens });
+                // No token provided, use CMS_ID for uniqueness
+                var existingUser = await _context.C3A.FirstOrDefaultAsync(u => u.CMS_ID == user.CMS_ID);
+
+                if (existingUser != null)
+                {
+                    // User with the same CMS ID already exists, return a conflict response
+                    var tokens = GenerateToken(existingUser.CMS_ID.ToString());
+                    user_token = tokens;
+                    return Ok(new { Token = tokens });
+                }
+            }
+            else
+            {
+                // Token provided, use email, name, and CMS_ID for uniqueness
+                var existingUser = await _context.C3A.FirstOrDefaultAsync(u =>
+                    u.EMAIL == user.EMAIL &&
+                    u.NAME == user.NAME &&
+                    u.CMS_ID == user.CMS_ID);
+
+                if (existingUser != null)
+                {
+                    // User with the same details already exists, return a conflict response
+                    var tokens = GenerateToken(existingUser.CMS_ID.ToString());
+                    user_token = tokens;
+                    return Ok(new { Token = tokens });
+                }
             }
 
             if (_context.C3A == null)
             {
-                return Problem("Entity set 'UserContext.Users'  is null.");
+                return Problem("Entity set 'UserContext.Users' is null.");
             }
 
             user.Comments = user.Comments ?? "";
             _context.C3A.Add(user);
             await _context.SaveChangesAsync();
 
-            var token = GenerateToken(user.CMS_ID.ToString());
-            user_token = token;
-            return Ok(new { Token = token });
-
+            if (auth==null)
+            {
+                // No token provided, generate a new one
+                var newToken = GenerateToken(user.CMS_ID.ToString());
+                user_token = newToken;
+                return Ok(new { Token = newToken });
+            }
+            else
+            {
+                // Token provided, use the provided token
+                user_token = token;
+                return Ok(new { Token = token });
+            }
         }
+
 
         // DELETE: api/Users/5
         [HttpDelete("{cms_id}")]

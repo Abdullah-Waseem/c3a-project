@@ -5,7 +5,7 @@
   display: flex;
   width: 5vw;
   padding: 12px;
-  margin-left: 40vw;
+
   border-radius: 20px;
   background-color: #007bff;
   color: #fff;
@@ -13,6 +13,18 @@
   font-weight: bold;
   cursor: pointer;
   min-width: 100px;
+  justify-content: center;
+}
+.crud-change-password {
+  display: flex;
+  padding: 12px;
+  margin-left: 40vw;
+  border-radius: 20px;
+  background-color: #007bff;
+  color: #fff;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
   justify-content: center;
 }
 .form-control {
