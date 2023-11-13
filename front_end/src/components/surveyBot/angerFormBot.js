@@ -63,17 +63,21 @@ const AngerFormBot = (props) => {
   };
 
   console.log("totalScore", totalScore);
+
   console.log("id", id);
   console.log("name", name);
   console.log("email", email);
   const messages = (score) => {
+    console.log("score", score);
     if (score <= 13) {
+      console.log("score is less than 13");
       return "Your score indicates you have a healthy state of mind. So chill and enjoy life.";
     } else if (score >= 14 && score < 20) {
       return "Your score indicates symptoms of mild Anger.";
     } else if (score >= 20 && score < 29) {
       return "Your score indicates symptoms of moderate Anger.";
     } else {
+      console.log("Score is dangerous");
       return "Your score indicates Potential Concerning Levels of Anger.";
     }
   };
@@ -812,7 +816,7 @@ const AngerFormBot = (props) => {
             },
             {
               id: "review-message",
-              message: messages(totalScore),
+              message: ({ previousValue, steps }) => messages(steps.totalScore),
               trigger: "end",
             },
             {
