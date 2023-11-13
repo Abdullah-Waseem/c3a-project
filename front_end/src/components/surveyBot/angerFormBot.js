@@ -143,17 +143,17 @@ const AngerFormBot = (props) => {
                 {
                   value: 0,
                   label: "I am not particularly angry about my future.",
-                  trigger: "q21",
+                  trigger: "5",
                 },
                 {
                   value: 1,
                   label: "When I think about my future, I feel angry.",
-                  trigger: "q21",
+                  trigger: "5",
                 },
                 {
                   value: 2,
                   label: "I feel angry about what I have to look forward to.",
-                  trigger: "q21",
+                  trigger: "5",
                 },
                 {
                   value: 3,

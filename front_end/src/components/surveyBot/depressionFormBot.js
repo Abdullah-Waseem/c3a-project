@@ -235,17 +235,17 @@ const DepressionFormBot = (props) => {
                 {
                   value: 0,
                   label: "I am not particularly discouraged about the future.",
-                  trigger: "45",
+                  trigger: "7",
                 },
                 {
                   value: 1,
                   label: "I feel discouraged about the future.",
-                  trigger: "45",
+                  trigger: "7",
                 },
                 {
                   value: 2,
                   label: "I feel I have nothing to look forward to",
-                  trigger: "45",
+                  trigger: "7",
                 },
                 {
                   value: 3,

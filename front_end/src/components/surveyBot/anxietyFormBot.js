@@ -305,16 +305,16 @@ const AnxietyFormBot = (props) => {
             {
               id: "q5",
               options: [
-                { value: 0, label: "Not at all", trigger: "43" },
+                { value: 0, label: "Not at all", trigger: "13" },
                 {
                   value: 1,
                   label: "Mildly, but it didnt bother me much",
-                  trigger: "43",
+                  trigger: "13",
                 },
                 {
                   value: 2,
                   label: "Moderately - it wasnt pleasant at times",
-                  trigger: "43",
+                  trigger: "13",
                 },
                 {
                   value: 3,
