@@ -30,21 +30,21 @@ const Review = (props) => {
     steps.q3.value +
     steps.q4.value +
     steps.q5.value +
-    // steps.q6.value +
-    // steps.q7.value +
-    // steps.q8.value +
-    // steps.q9.value +
-    // steps.q10.value +
-    // steps.q11.value +
-    // steps.q12.value +
-    // steps.q13.value +
-    // steps.q14.value +
-    // steps.q15.value +
-    // steps.q16.value +
-    // steps.q17.value +
-    // steps.q18.value +
-    // steps.q19.value +
-    // steps.q20.value +
+    steps.q6.value +
+    steps.q7.value +
+    steps.q8.value +
+    steps.q9.value +
+    steps.q10.value +
+    steps.q11.value +
+    steps.q12.value +
+    steps.q13.value +
+    steps.q14.value +
+    steps.q15.value +
+    steps.q16.value +
+    steps.q17.value +
+    steps.q18.value +
+    steps.q19.value +
+    steps.q20.value +
     steps.q21.value;
 
   let message;
@@ -107,7 +107,7 @@ const AnxietyFormBot = (props) => {
     for (let i = 0; i < steps.values.length; i++) {
       total += steps.values[i];
     }
-    if (total > 5) {
+    if (total > 26) {
       // Send email logic here
       const params = new URLSearchParams({
         subject: "High Anxiety Score Alert",
@@ -319,400 +319,400 @@ const AnxietyFormBot = (props) => {
                 {
                   value: 3,
                   label: "Severely - it bothered me a lot",
+                  trigger: "13",
+                },
+              ],
+            },
+            {
+              id: "13",
+              message: "Dizzy or lightheaded",
+              trigger: "q6",
+            },
+            {
+              id: "q6",
+              options: [
+                { value: 0, label: "Not at all", trigger: "15" },
+                {
+                  value: 1,
+                  label: "Mildly, but it didnt bother me much",
+                  trigger: "15",
+                },
+                {
+                  value: 2,
+                  label: "Moderately - it wasnt pleasant at times",
+                  trigger: "15",
+                },
+                {
+                  value: 3,
+                  label: "Severely - it bothered me a lot",
+                  trigger: "15",
+                },
+              ],
+            },
+            {
+              id: "15",
+              message: "Heart pounding / racing",
+              trigger: "q7",
+            },
+            {
+              id: "q7",
+              options: [
+                { value: 0, label: "Not at all", trigger: "17" },
+                {
+                  value: 1,
+                  label: "Mildly, but it didnt bother me much",
+                  trigger: "17",
+                },
+                {
+                  value: 2,
+                  label: "Moderately - it wasnt pleasant at times",
+                  trigger: "17",
+                },
+                {
+                  value: 3,
+                  label: "Severely - it bothered me a lot",
+                  trigger: "17",
+                },
+              ],
+            },
+            {
+              id: "17",
+              message: "Unsteady",
+              trigger: "q8",
+            },
+            {
+              id: "q8",
+              options: [
+                { value: 0, label: "Not at all", trigger: "19" },
+                {
+                  value: 1,
+                  label: "Mildly, but it didnt bother me much",
+                  trigger: "19",
+                },
+                {
+                  value: 2,
+                  label: "Moderately - it wasnt pleasant at times",
+                  trigger: "19",
+                },
+                {
+                  value: 3,
+                  label: "Severely - it bothered me a lot",
+                  trigger: "19",
+                },
+              ],
+            },
+            {
+              id: "19",
+              message: "Terrified or afraid",
+              trigger: "q9",
+            },
+            {
+              id: "q9",
+              options: [
+                { value: 0, label: "Not at all", trigger: "21" },
+                {
+                  value: 1,
+                  label: "Mildly, but it didnt bother me much",
+                  trigger: "21",
+                },
+                {
+                  value: 2,
+                  label: "Moderately - it wasnt pleasant at times",
+                  trigger: "21",
+                },
+                {
+                  value: 3,
+                  label: "Severely - it bothered me a lot",
+                  trigger: "21",
+                },
+              ],
+            },
+            {
+              id: "21",
+              message: "Nervous",
+              trigger: "q10",
+            },
+            {
+              id: "q10",
+              options: [
+                { value: 0, label: "Not at all", trigger: "23" },
+                {
+                  value: 1,
+                  label: "Mildly, but it didnt bother me much",
+                  trigger: "23",
+                },
+                {
+                  value: 2,
+                  label: "Moderately - it wasnt pleasant at times",
+                  trigger: "23",
+                },
+                {
+                  value: 3,
+                  label: "Severely - it bothered me a lot",
+                  trigger: "23",
+                },
+              ],
+            },
+            {
+              id: "23",
+              message: "Feeling of choking",
+              trigger: "q11",
+            },
+            {
+              id: "q11",
+              options: [
+                { value: 0, label: "Not at all", trigger: "25" },
+                {
+                  value: 1,
+                  label: "Mildly, but it didnt bother me much",
+                  trigger: "25",
+                },
+                {
+                  value: 2,
+                  label: "Moderately - it wasnt pleasant at times",
+                  trigger: "25",
+                },
+                {
+                  value: 3,
+                  label: "Severely - it bothered me a lot",
+                  trigger: "25",
+                },
+              ],
+            },
+            {
+              id: "25",
+              message: "Hands trembling",
+              trigger: "q12",
+            },
+            {
+              id: "q12",
+              options: [
+                { value: 0, label: "Not at all", trigger: "27" },
+                {
+                  value: 1,
+                  label: "Mildly, but it didnt bother me much",
+                  trigger: "27",
+                },
+                {
+                  value: 2,
+                  label: "Moderately - it wasnt pleasant at times",
+                  trigger: "27",
+                },
+                {
+                  value: 3,
+                  label: "Severely - it bothered me a lot",
+                  trigger: "27",
+                },
+              ],
+            },
+            {
+              id: "27",
+              message: "Shaky / unsteady",
+              trigger: "q13",
+            },
+            {
+              id: "q13",
+              options: [
+                { value: 0, label: "Not at all", trigger: "29" },
+                {
+                  value: 1,
+                  label: "Mildly, but it didnt bother me much",
+                  trigger: "29",
+                },
+                {
+                  value: 2,
+                  label: "Moderately - it wasnt pleasant at times",
+                  trigger: "29",
+                },
+                {
+                  value: 3,
+                  label: "Severely - it bothered me a lot",
+                  trigger: "29",
+                },
+              ],
+            },
+            {
+              id: "29",
+              message: "Fear of losing control",
+              trigger: "q14",
+            },
+            {
+              id: "q14",
+              options: [
+                { value: 0, label: "Not at all", trigger: "31" },
+                {
+                  value: 1,
+                  label: "Mildly, but it didnt bother me much",
+                  trigger: "31",
+                },
+                {
+                  value: 2,
+                  label: "Moderately - it wasnt pleasant at times",
+                  trigger: "31",
+                },
+                {
+                  value: 3,
+                  label: "Severely - it bothered me a lot",
+                  trigger: "31",
+                },
+              ],
+            },
+            {
+              id: "31",
+              message: "Difficulty in breathing",
+              trigger: "q15",
+            },
+            {
+              id: "q15",
+              options: [
+                { value: 0, label: "Not at all", trigger: "33" },
+                {
+                  value: 1,
+                  label: "Mildly, but it didnt bother me much",
+                  trigger: "33",
+                },
+                {
+                  value: 2,
+                  label: "Moderately - it wasnt pleasant at times",
+                  trigger: "33",
+                },
+                {
+                  value: 3,
+                  label: "Severely - it bothered me a lot",
+                  trigger: "33",
+                },
+              ],
+            },
+            {
+              id: "33",
+              message: "Fear of dying",
+              trigger: "q16",
+            },
+            {
+              id: "q16",
+              options: [
+                { value: 0, label: "Not at all", trigger: "35" },
+                {
+                  value: 1,
+                  label: "Mildly, but it didnt bother me much",
+                  trigger: "35",
+                },
+                {
+                  value: 2,
+                  label: "Moderately - it wasnt pleasant at times",
+                  trigger: "35",
+                },
+                {
+                  value: 3,
+                  label: "Severely - it bothered me a lot",
+                  trigger: "35",
+                },
+              ],
+            },
+            {
+              id: "35",
+              message: "Scared",
+              trigger: "q17",
+            },
+            {
+              id: "q17",
+              options: [
+                { value: 0, label: "Not at all", trigger: "37" },
+                {
+                  value: 1,
+                  label: "Mildly, but it didnt bother me much",
+                  trigger: "37",
+                },
+                {
+                  value: 2,
+                  label: "Moderately - it wasnt pleasant at times",
+                  trigger: "37",
+                },
+                {
+                  value: 3,
+                  label: "Severely - it bothered me a lot",
+                  trigger: "37",
+                },
+              ],
+            },
+            {
+              id: "37",
+              message: "Indigestion",
+              trigger: "q18",
+            },
+            {
+              id: "q18",
+              options: [
+                { value: 0, label: "Not at all", trigger: "39" },
+                {
+                  value: 1,
+                  label: "Mildly, but it didnt bother me much",
+                  trigger: "39",
+                },
+                {
+                  value: 2,
+                  label: "Moderately - it wasnt pleasant at times",
+                  trigger: "39",
+                },
+                {
+                  value: 3,
+                  label: "Severely - it bothered me a lot",
+                  trigger: "39",
+                },
+              ],
+            },
+            {
+              id: "39",
+              message: "Faint / lightheaded",
+              trigger: "q19",
+            },
+            {
+              id: "q19",
+              options: [
+                { value: 0, label: "Not at all", trigger: "41" },
+                {
+                  value: 1,
+                  label: "Mildly, but it didnt bother me much",
+                  trigger: "41",
+                },
+                {
+                  value: 2,
+                  label: "Moderately - it wasnt pleasant at times",
+                  trigger: "41",
+                },
+                {
+                  value: 3,
+                  label: "Severely - it bothered me a lot",
+                  trigger: "41",
+                },
+              ],
+            },
+            {
+              id: "41",
+              message: "Face flushed",
+              trigger: "q20",
+            },
+            {
+              id: "q20",
+              options: [
+                { value: 0, label: "Not at all", trigger: "43" },
+                {
+                  value: 1,
+                  label: "Mildly, but it didnt bother me much",
+                  trigger: "43",
+                },
+                {
+                  value: 2,
+                  label: "Moderately - it wasnt pleasant at times",
+                  trigger: "43",
+                },
+                {
+                  value: 3,
+                  label: "Severely - it bothered me a lot",
                   trigger: "43",
                 },
               ],
             },
-            // {
-            //   id: "13",
-            //   message: "Dizzy or lightheaded",
-            //   trigger: "q6",
-            // },
-            // {
-            //   id: "q6",
-            //   options: [
-            //     { value: 0, label: "Not at all", trigger: "15" },
-            //     {
-            //       value: 1,
-            //       label: "Mildly, but it didnt bother me much",
-            //       trigger: "15",
-            //     },
-            //     {
-            //       value: 2,
-            //       label: "Moderately - it wasnt pleasant at times",
-            //       trigger: "15",
-            //     },
-            //     {
-            //       value: 3,
-            //       label: "Severely - it bothered me a lot",
-            //       trigger: "15",
-            //     },
-            //   ],
-            // },
-            // {
-            //   id: "15",
-            //   message: "Heart pounding / racing",
-            //   trigger: "q7",
-            // },
-            // {
-            //   id: "q7",
-            //   options: [
-            //     { value: 0, label: "Not at all", trigger: "17" },
-            //     {
-            //       value: 1,
-            //       label: "Mildly, but it didnt bother me much",
-            //       trigger: "17",
-            //     },
-            //     {
-            //       value: 2,
-            //       label: "Moderately - it wasnt pleasant at times",
-            //       trigger: "17",
-            //     },
-            //     {
-            //       value: 3,
-            //       label: "Severely - it bothered me a lot",
-            //       trigger: "17",
-            //     },
-            //   ],
-            // },
-            // {
-            //   id: "17",
-            //   message: "Unsteady",
-            //   trigger: "q8",
-            // },
-            // {
-            //   id: "q8",
-            //   options: [
-            //     { value: 0, label: "Not at all", trigger: "19" },
-            //     {
-            //       value: 1,
-            //       label: "Mildly, but it didnt bother me much",
-            //       trigger: "19",
-            //     },
-            //     {
-            //       value: 2,
-            //       label: "Moderately - it wasnt pleasant at times",
-            //       trigger: "19",
-            //     },
-            //     {
-            //       value: 3,
-            //       label: "Severely - it bothered me a lot",
-            //       trigger: "19",
-            //     },
-            //   ],
-            // },
-            // {
-            //   id: "19",
-            //   message: "Terrified or afraid",
-            //   trigger: "q9",
-            // },
-            // {
-            //   id: "q9",
-            //   options: [
-            //     { value: 0, label: "Not at all", trigger: "21" },
-            //     {
-            //       value: 1,
-            //       label: "Mildly, but it didnt bother me much",
-            //       trigger: "21",
-            //     },
-            //     {
-            //       value: 2,
-            //       label: "Moderately - it wasnt pleasant at times",
-            //       trigger: "21",
-            //     },
-            //     {
-            //       value: 3,
-            //       label: "Severely - it bothered me a lot",
-            //       trigger: "21",
-            //     },
-            //   ],
-            // },
-            // {
-            //   id: "21",
-            //   message: "Nervous",
-            //   trigger: "q10",
-            // },
-            // {
-            //   id: "q10",
-            //   options: [
-            //     { value: 0, label: "Not at all", trigger: "23" },
-            //     {
-            //       value: 1,
-            //       label: "Mildly, but it didnt bother me much",
-            //       trigger: "23",
-            //     },
-            //     {
-            //       value: 2,
-            //       label: "Moderately - it wasnt pleasant at times",
-            //       trigger: "23",
-            //     },
-            //     {
-            //       value: 3,
-            //       label: "Severely - it bothered me a lot",
-            //       trigger: "23",
-            //     },
-            //   ],
-            // },
-            // {
-            //   id: "23",
-            //   message: "Feeling of choking",
-            //   trigger: "q11",
-            // },
-            // {
-            //   id: "q11",
-            //   options: [
-            //     { value: 0, label: "Not at all", trigger: "25" },
-            //     {
-            //       value: 1,
-            //       label: "Mildly, but it didnt bother me much",
-            //       trigger: "25",
-            //     },
-            //     {
-            //       value: 2,
-            //       label: "Moderately - it wasnt pleasant at times",
-            //       trigger: "25",
-            //     },
-            //     {
-            //       value: 3,
-            //       label: "Severely - it bothered me a lot",
-            //       trigger: "25",
-            //     },
-            //   ],
-            // },
-            // {
-            //   id: "25",
-            //   message: "Hands trembling",
-            //   trigger: "q12",
-            // },
-            // {
-            //   id: "q12",
-            //   options: [
-            //     { value: 0, label: "Not at all", trigger: "27" },
-            //     {
-            //       value: 1,
-            //       label: "Mildly, but it didnt bother me much",
-            //       trigger: "27",
-            //     },
-            //     {
-            //       value: 2,
-            //       label: "Moderately - it wasnt pleasant at times",
-            //       trigger: "27",
-            //     },
-            //     {
-            //       value: 3,
-            //       label: "Severely - it bothered me a lot",
-            //       trigger: "27",
-            //     },
-            //   ],
-            // },
-            // {
-            //   id: "27",
-            //   message: "Shaky / unsteady",
-            //   trigger: "q13",
-            // },
-            // {
-            //   id: "q13",
-            //   options: [
-            //     { value: 0, label: "Not at all", trigger: "29" },
-            //     {
-            //       value: 1,
-            //       label: "Mildly, but it didnt bother me much",
-            //       trigger: "29",
-            //     },
-            //     {
-            //       value: 2,
-            //       label: "Moderately - it wasnt pleasant at times",
-            //       trigger: "29",
-            //     },
-            //     {
-            //       value: 3,
-            //       label: "Severely - it bothered me a lot",
-            //       trigger: "29",
-            //     },
-            //   ],
-            // },
-            // {
-            //   id: "29",
-            //   message: "Fear of losing control",
-            //   trigger: "q14",
-            // },
-            // {
-            //   id: "q14",
-            //   options: [
-            //     { value: 0, label: "Not at all", trigger: "31" },
-            //     {
-            //       value: 1,
-            //       label: "Mildly, but it didnt bother me much",
-            //       trigger: "31",
-            //     },
-            //     {
-            //       value: 2,
-            //       label: "Moderately - it wasnt pleasant at times",
-            //       trigger: "31",
-            //     },
-            //     {
-            //       value: 3,
-            //       label: "Severely - it bothered me a lot",
-            //       trigger: "31",
-            //     },
-            //   ],
-            // },
-            // {
-            //   id: "31",
-            //   message: "Difficulty in breathing",
-            //   trigger: "q15",
-            // },
-            // {
-            //   id: "q15",
-            //   options: [
-            //     { value: 0, label: "Not at all", trigger: "33" },
-            //     {
-            //       value: 1,
-            //       label: "Mildly, but it didnt bother me much",
-            //       trigger: "33",
-            //     },
-            //     {
-            //       value: 2,
-            //       label: "Moderately - it wasnt pleasant at times",
-            //       trigger: "33",
-            //     },
-            //     {
-            //       value: 3,
-            //       label: "Severely - it bothered me a lot",
-            //       trigger: "33",
-            //     },
-            //   ],
-            // },
-            // {
-            //   id: "33",
-            //   message: "Fear of dying",
-            //   trigger: "q16",
-            // },
-            // {
-            //   id: "q16",
-            //   options: [
-            //     { value: 0, label: "Not at all", trigger: "35" },
-            //     {
-            //       value: 1,
-            //       label: "Mildly, but it didnt bother me much",
-            //       trigger: "35",
-            //     },
-            //     {
-            //       value: 2,
-            //       label: "Moderately - it wasnt pleasant at times",
-            //       trigger: "35",
-            //     },
-            //     {
-            //       value: 3,
-            //       label: "Severely - it bothered me a lot",
-            //       trigger: "35",
-            //     },
-            //   ],
-            // },
-            // {
-            //   id: "35",
-            //   message: "Scared",
-            //   trigger: "q17",
-            // },
-            // {
-            //   id: "q17",
-            //   options: [
-            //     { value: 0, label: "Not at all", trigger: "37" },
-            //     {
-            //       value: 1,
-            //       label: "Mildly, but it didnt bother me much",
-            //       trigger: "37",
-            //     },
-            //     {
-            //       value: 2,
-            //       label: "Moderately - it wasnt pleasant at times",
-            //       trigger: "37",
-            //     },
-            //     {
-            //       value: 3,
-            //       label: "Severely - it bothered me a lot",
-            //       trigger: "37",
-            //     },
-            //   ],
-            // },
-            // {
-            //   id: "37",
-            //   message: "Indigestion",
-            //   trigger: "q18",
-            // },
-            // {
-            //   id: "q18",
-            //   options: [
-            //     { value: 0, label: "Not at all", trigger: "39" },
-            //     {
-            //       value: 1,
-            //       label: "Mildly, but it didnt bother me much",
-            //       trigger: "39",
-            //     },
-            //     {
-            //       value: 2,
-            //       label: "Moderately - it wasnt pleasant at times",
-            //       trigger: "39",
-            //     },
-            //     {
-            //       value: 3,
-            //       label: "Severely - it bothered me a lot",
-            //       trigger: "39",
-            //     },
-            //   ],
-            // },
-            // {
-            //   id: "39",
-            //   message: "Faint / lightheaded",
-            //   trigger: "q19",
-            // },
-            // {
-            //   id: "q19",
-            //   options: [
-            //     { value: 0, label: "Not at all", trigger: "41" },
-            //     {
-            //       value: 1,
-            //       label: "Mildly, but it didnt bother me much",
-            //       trigger: "41",
-            //     },
-            //     {
-            //       value: 2,
-            //       label: "Moderately - it wasnt pleasant at times",
-            //       trigger: "41",
-            //     },
-            //     {
-            //       value: 3,
-            //       label: "Severely - it bothered me a lot",
-            //       trigger: "41",
-            //     },
-            //   ],
-            // },
-            // {
-            //   id: "41",
-            //   message: "Face flushed",
-            //   trigger: "q20",
-            // },
-            // {
-            //   id: "q20",
-            //   options: [
-            //     { value: 0, label: "Not at all", trigger: "43" },
-            //     {
-            //       value: 1,
-            //       label: "Mildly, but it didnt bother me much",
-            //       trigger: "43",
-            //     },
-            //     {
-            //       value: 2,
-            //       label: "Moderately - it wasnt pleasant at times",
-            //       trigger: "43",
-            //     },
-            //     {
-            //       value: 3,
-            //       label: "Severely - it bothered me a lot",
-            //       trigger: "43",
-            //     },
-            //   ],
-            // },
             {
               id: "43",
               message: "Hot / cold sweat",

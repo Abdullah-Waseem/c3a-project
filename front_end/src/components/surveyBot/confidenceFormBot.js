@@ -95,7 +95,7 @@ const ConfidenceFormBot = (props) => {
       total += steps.values[i];
     }
 
-    if (total > 5) {
+    if (total > 15) {
       // Send email logic here
       const params = new URLSearchParams({
         subject: "High Self Esteem Score Alert",
