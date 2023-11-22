@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import PropTypes from "prop-types";
 import ChatBot from "react-simple-chatbot";
 import { ThemeProvider } from "styled-components";
 import "./surveyBot.css";
@@ -8,7 +9,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { useMyContext } from "../../MyContext"; // Import the context hook
 
 const theme = {
-  headerTitle: "Anger Screening Bot",
+  background: "#f5f8fb",
   fontFamily: "Helvetica Neue",
   headerBgColor: "#1686ec",
   headerFontColor: "#fff",
@@ -19,11 +20,76 @@ const theme = {
   userFontColor: "#4a4a4a",
 };
 
+const Review = (props) => {
+  const { steps } = props;
+
+  let total = 0;
+  total =
+    steps.q1.value +
+    steps.q2.value +
+    steps.q3.value +
+    steps.q4.value +
+    steps.q5.value +
+    steps.q6.value +
+    steps.q7.value +
+    steps.q8.value +
+    steps.q9.value +
+    steps.q10.value +
+    steps.q11.value +
+    steps.q12.value +
+    steps.q13.value +
+    steps.q14.value +
+    steps.q15.value +
+    steps.q16.value +
+    steps.q17.value +
+    steps.q18.value +
+    steps.q19.value +
+    steps.q20.value +
+    steps.q21.value;
+
+  let message;
+
+  if (total <= 13) {
+    message= "Your score indicates you have a healthy state of mind. So chill and enjoy life.";
+  } else if (total >= 14 && total < 20) {
+    message= "Your score indicates symptoms of mild Anger.";
+  } else if (total >= 20 && total < 29) {
+    message= "Your score indicates symptoms of moderate Anger.";
+  } else {
+    message= "Your score indicates Potential Concerning Levels of Anger. Please contact C3A for professional counselling on managing your anger in healthy ways.";
+  }
+
+  return (
+    <div style={{ width: "100%" }}>
+      <p>{message}</p>
+      {total >= 28 ? (
+        <div>
+          <p>
+            You can also click{" "}
+            <a
+              href="https://c3a.nust.edu.pk/counselling-services/for-appointment/for-appointment/"
+              target="_blank"
+              rel="noreferrer noopener"
+            >
+              here
+            </a>{" "}
+            to set an appointment
+          </p>
+        </div>
+      ) : null}
+    </div>
+  );
+};
+
+Review.propTypes = {
+  steps: PropTypes.object,
+};
+
 const AngerFormBot = (props) => {
   const { id, name, email, comments } = props;
   const [totalScore, setTotalScore] = useState(0);
   const { token } = useMyContext();
-
+  console.log("token", token);
   const handleReview = (steps) => {
     let total = 0;
     for (let i = 0; i < steps.values.length; i++) {
@@ -49,37 +115,16 @@ const AngerFormBot = (props) => {
           }
         )
         .then((response) => {
-          console.log("Email sent successfully");
+          console.log("email response", response);
         })
         .catch((error) => {
-          console.error("Error sending email:", error);
+          console.log("Error sending email:", error.response);
         });
-      // console.log("total", total);
+      //
     }
 
-    // console.log("total", total);
     setTotalScore(total);
     updateData(id, name, email, comments, total);
-  };
-
-  console.log("totalScore", totalScore);
-
-  console.log("id", id);
-  console.log("name", name);
-  console.log("email", email);
-  const messages = (score) => {
-    console.log("score", score);
-    if (score <= 13) {
-      console.log("score is less than 13");
-      return "Your score indicates you have a healthy state of mind. So chill and enjoy life.";
-    } else if (score >= 14 && score < 20) {
-      return "Your score indicates symptoms of mild Anger.";
-    } else if (score >= 20 && score < 29) {
-      return "Your score indicates symptoms of moderate Anger.";
-    } else {
-      console.log("Score is dangerous");
-      return "Your score indicates Potential Concerning Levels of Anger.";
-    }
   };
 
   const updateData = (id, name, email, comments, total) => {
@@ -92,6 +137,7 @@ const AngerFormBot = (props) => {
       clientOfC3A: "",
       email_Sent: total > 5 ? "Yes" : "No",
     };
+
     axios
       .put(url, data, {
         headers: {
@@ -101,20 +147,23 @@ const AngerFormBot = (props) => {
       .then((response) => {
         // getData();
         // clear();
+        console.log("response", response);
         toast.success("Data updated successfully");
       })
       .catch((error) => {
+        console.log("error", error);
         toast.error(error);
       });
   };
+
   return (
-    <div style={{ zoom: 1.25 }} className="bot-container">
+    <div style={{ zoom: 1.25 }}>
       <ThemeProvider theme={theme}>
         <ChatBot
           className="custom-chatbot"
           headerTitle="Anger Screening Bot"
-          hideUserInput={true}
           handleEnd={(steps) => handleReview(steps)}
+          hideUserInput={true}
           headerDelay={0}
           userDelay={0}
           botDelay={500}
@@ -812,20 +861,16 @@ const AngerFormBot = (props) => {
               id: "45",
               message:
                 "Thank you for your submission of Screening form for Anger",
-              trigger: "review-message",
+              trigger: "review",
             },
             {
-              id: "review-message",
-              message: ({ previousValue, steps }) => messages(steps.totalScore),
-              trigger: "end",
-            },
-            {
-              id: "end",
-              message: "Good Bye",
+              id: "review",
+              component: <Review />,
+              asMessage: true,
               end: true,
             },
           ]}
-          style={{ width: "100%", height: "80%" }}
+          style={{ width: "100%", height: "100%" }}
         />
       </ThemeProvider>
     </div>

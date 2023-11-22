@@ -163,7 +163,7 @@ const ConfidenceFormBot = (props) => {
     <div style={{ zoom: 1.25 }}>
       <ThemeProvider theme={theme}>
         <ChatBot
-          headerTitle="Self Esteem Form Bot"
+          headerTitle="Self Esteem Screening Bot"
           className="custom-chatbot"
           hideUserInput={true}
           handleEnd={(steps) => handleReview(steps)}
@@ -175,7 +175,7 @@ const ConfidenceFormBot = (props) => {
             {
               id: "1",
               message:
-                "This is a screening tool for basic measurement of the nature and intensity of your concerns. Please note that this information is not diagnosis but merely there to guide if professional help is required. Please consider these scores according.",
+                "This is a screening tool for basic measurement of the nature and intensity of your concerns. Please note that this information is not diagnosis but merely there to guide if professional help is required. Please consider these scores accordingly.",
               trigger: "2",
             },
             {
