@@ -733,7 +733,7 @@ const AngerFormBot = (props) => {
                 {
                   value: 0,
                   label:
-                    "My appetite does not suffer because of my feelings of anger.",
+                    "My feelings of anger are beginning to affect my appetite",
                   trigger: "39",
                 },
                 {

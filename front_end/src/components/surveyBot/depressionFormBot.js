@@ -468,7 +468,7 @@ const DepressionFormBot = (props) => {
               options: [
                 {
                   value: 0,
-                  label: "I would kill myself if I had the chance.",
+                  label: "I don't cry any more than usual",
                   trigger: "23",
                 },
                 {
